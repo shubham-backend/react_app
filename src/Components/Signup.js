@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom"
 import React from 'react';
 class Signup extends React.Component {
     constructor() {
@@ -90,6 +91,7 @@ class Signup extends React.Component {
                         <div className="text-danger">{this.state.errors.password}</div>
                     </div>
                     <button type="submit" class="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
+                    <p className="forgot" align="center"><Link to="/login">Back to Login</Link></p>   
                 </form>
           <div id="table_data">
             <table>
