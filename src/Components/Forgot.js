@@ -9,7 +9,7 @@ function Forgot()
                     <div className="text-danger"></div>
                 </div>
                 <button class="btn btn-success my-2 my-sm-0" type="submit">Submit</button>
-                <p className="forgot" align="center"><Link to="/forgot">Back to Login</Link></p>
+                <p className="forgot" align="center"><Link to="/login">Back to Login</Link></p>
             </form>
         </div>
     )

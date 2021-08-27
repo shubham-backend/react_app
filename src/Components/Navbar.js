@@ -1,5 +1,15 @@
 import {Link} from 'react-router-dom';
 
+var searchText;
+var getSearchText = function(event){
+    searchText = event.target.value;
+}
+
+var search = function(event){
+if(searchText){
+    alert('Search - '+ searchText)
+}
+}
 function Navbar()
 {
     return(
@@ -13,8 +23,8 @@ function Navbar()
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <form class="form-inline my-2 my-lg-0 ml-5">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search cakes..." aria-label="Search" />
-                        <Link to="/search"><button class="btn btn-success my-2 my-sm-0" type="submit">Search</button></Link>
+                        <input onChange={getSearchText} class="form-control mr-sm-2" type="search" placeholder="Search cakes..." aria-label="Search" />
+                        <Link to="/search"><button onClick={search} class="btn btn-success my-2 my-sm-0" type="submit">Search</button></Link>
                     </form>
                 </ul>
                 <div class="nav-wrapper">
