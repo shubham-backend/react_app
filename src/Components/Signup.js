@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom"
 import React from 'react';
+import axios from 'axios'
 class Signup extends React.Component {
     constructor() {
         super();
@@ -28,12 +29,23 @@ class Signup extends React.Component {
         if(this.validate()){
             let items = [...this.state.items];
             items.push({name: this.state.name,email: this.state.email, password: this.state.password});
+            var user = {name: this.state.name,email: this.state.email, password: this.state.password}
             this.setState({
                 items,
                 name: '',
                 email: '',
                 password:''
             });
+            axios({
+                url: process.env.REACT_APP_BASE_API_URL +"/register",
+                method:'post',
+                data:user
+            }).then((response) => {
+                console.log("Register API", response)
+            }, (error)=>{
+                console.log("Error - Resgiter API", error)
+            })
+            //window.location.href ="/"
             alert('Form Submitted Successfully');
         }
     }
@@ -93,7 +105,7 @@ class Signup extends React.Component {
                     <button type="submit" class="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
                     <p className="forgot" align="center"><Link to="/login">Back to Login</Link></p>   
                 </form>
-          <div id="table_data">
+          {/* <div id="table_data">
             <table>
               <tbody>
                 <tr>
@@ -112,7 +124,7 @@ class Signup extends React.Component {
                 })}
               </tbody>
             </table>
-          </div>
+          </div> */}
         </div>
         )
       }

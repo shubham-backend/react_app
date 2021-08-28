@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import {useState, useEffect} from "react"
+import axios from "axios"
 var CakeList =[
 {
     name:"Truffle Cake",
@@ -59,7 +62,7 @@ let stl = {
 }
 
 let cakestyle = {
-    width: "20em", 
+    width: "18em", 
     margin: "0 15px 10px 0",
     padding: "1em 0",
 }
@@ -67,16 +70,28 @@ let cakestyle = {
 export default function Cake(props)
 {
     
+    var[cake,setCakes]= useState([]);
+    useEffect(() => {
+        axios({
+            method:'get',
+            url: process.env.REACT_APP_BASE_API_URL +"/allcakes"
+            }).then((response)=>{
+            console.log("response from all cakes api " , response.data)
+            setCakes(response.data.data)
+            }, (error)=>{
+            console.log("error from api " , error)
+            }) 
+    }, [])
     return 	(
         <div className="row" style={stl}>
-            { CakeList.map((cake,index) =>( 
+            { cake.map((cake,index) =>( 
                 <div className="card hvimg" style={cakestyle} key={index}>
-                    <img className="card-img-top hvimg1" src={cake.image} alt="Card image cap"/>
+                    <Link to="/cake-details"> <img className="card-img-top hvimg1" src={cake.image} alt="Card image cap"/> </Link>
                 <div className="card-body">
                     <h5 className="card-title">{cake.name}</h5>
                     <p className="card-text">₹{cake.price}</p>
                     <div style={{textAlign:"center"}}>
-                    <button className="btn btn-primary">Cake Details</button>
+                   <Link to="/cake-details"> <button className="btn btn-primary">Cake Details</button> </Link>
                     </div>
                 </div>
                 </div>
