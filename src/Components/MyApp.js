@@ -24,7 +24,7 @@ function MyApp()
             <Route exact path="/forgot" component={Forgot}></Route>
             <Route exact path="/search" component={Search}></Route>
             <Route exact path="/admin" component={Admin}></Route>
-            <Route exact path="/cake-details" component={CakeDetails}></Route>
+            <Route exact path="/cake/:cakeid" component={CakeDetails}></Route>
             <Route exact path="/cart" component={Cart}></Route>
             <Route exact path="/checkout" component={Checkout}></Route>
             <Route exact path="/*" component={Pagenotfound}></Route>

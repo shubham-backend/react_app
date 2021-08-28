@@ -86,12 +86,12 @@ export default function Cake(props)
         <div className="row" style={stl}>
             { cake.map((cake,index) =>( 
                 <div className="card hvimg" style={cakestyle} key={index}>
-                    <Link to="/cake-details"> <img className="card-img-top hvimg1" src={cake.image} alt="Card image cap"/> </Link>
+                    <Link to={"/cake/"+cake.cakeid}> <img className="card-img-top hvimg1" src={cake.image} alt="Card image cap"/> </Link>
                 <div className="card-body">
                     <h5 className="card-title">{cake.name}</h5>
                     <p className="card-text">₹{cake.price}</p>
                     <div style={{textAlign:"center"}}>
-                   <Link to="/cake-details"> <button className="btn btn-primary">Cake Details</button> </Link>
+                   <Link to={"/cake/"+cake.cakeid}> <button className="btn btn-primary">Cake Details</button> </Link>
                     </div>
                 </div>
                 </div>
