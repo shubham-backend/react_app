@@ -133,9 +133,9 @@ svg.V3C5bO.btn-spc {
 }
 
 .card-1 {
-  padding: 30px 30px 20px 30px !important;
+  padding: 8px ​8px 30px 10px !important;
   border: none;
-  width: 375px
+  width: 700px
 }
 
 .category {
@@ -144,7 +144,7 @@ svg.V3C5bO.btn-spc {
 }
 
 .product-name {
-  padding-bottom: 15px;
+  padding-bottom: 1px;
   font-family: Florence;
   font-weight: bold
 }
@@ -165,4 +165,30 @@ svg.V3C5bO.btn-spc {
 .fa-star-o {
   color: #FF6F00;
   cursor: pointer
+}
+
+
+.card.hvimg:hover img {
+  -webkit-transform: scale(1.3) !important;
+      transform: scale(1.3) !important;
+      overflow: hidden;
+    }
+
+.hvimg1 {
+    width: 100%;
+    height: 230px;
+		-webkit-transform: scale(1);
+		transform: scale(1);
+		-webkit-transition: .3s ease-in-out;
+		transition: .3s ease-in-out !important;
+}
+
+.card.hvimg {
+  overflow: hidden;
+}
+
+.hvimg > a {
+  height: 230px;
+  display: block;
+  overflow: hidden;
 }

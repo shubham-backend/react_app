@@ -4,8 +4,24 @@ function Admin()
     var[errorName,setErrorName] = useState(null)
     var[errorEmail,setErrorEmail] = useState(null)
     var[errorPhone,setErrorPhone] = useState(null)
-    const [userArray, setUserArray] = useState([]);
-
+    var [userArray, setUserArray] = useState([]);
+    var alluser = [{
+        name:"Shubham1",
+        email:"shubham1@gmail.com",
+        phone:"9191919191"
+    },
+    {
+        name:"Shubham2",
+        email:"shubham2@gmail.com",
+        phone:"9292929292"
+    },
+    {
+        name:"Shubham3",
+        email:"shubham3@gmail.com",
+        phone:"9393939393"
+    }];
+    var [users, setUsers] = useState([...alluser
+    ])
 
     var user ={};
     function handleName(e){
@@ -17,8 +33,9 @@ function Admin()
     function handlePhone(e){
         user.phone = e.target.value
     }
-    function Submit(e)
-    {
+    //function Submit(e)
+    var Submit = (e) => {
+
         e.preventDefault();
         if(!user.name){
             setErrorName("Name field is required");
@@ -28,9 +45,25 @@ function Admin()
             setErrorPhone("Phone field is required");
         }
         //usestate array push
-        setUserArray([...userArray, user]);
-        console.log(userArray)
+        if(user.email && user.phone && user.name){
+           console.log("User", user);
+           setUsers(alluser => [...alluser, user]);
+           console.log("New User", userArray);
+        }
     }
+    var search = function(e){
+        if(e.target.value){
+            users = users.filter((each)=>{
+            console.log(".... eeach ",each.name)
+                return each.name.includes(e.target.value)||each.email.includes(e.target.value)
+            })
+            setUsers([...users])
+
+        }
+        else{
+            setUsers([...alluser])
+            }
+        } 
     return (
         <div>
             <div className="Apps">
@@ -48,12 +81,34 @@ function Admin()
                     </div>
                     <div className="form-group">
                         <label for="exampleInputPassword1">Phone</label>
-                        <input type="password" onChange={handlePhone} class="form-control" name="password" placeholder="Enter Password"/>
+                        <input type="text" onChange={handlePhone} class="form-control" name="password" placeholder="Enter Password"/>
                         <div className="text-danger">{errorPhone}</div>
                     </div>
                     <button type="submit" class="btn btn-primary" onClick={Submit}>Submit</button>
                 </form>
             </div>
+            <h3>User List</h3>
+            <input type="search" onChange={search}></input>Total User -{users.length}
+            <div id="table_data">
+            <table>
+              <tbody>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                </tr>
+                {users?.map((item,index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{item.name}</td>
+                      <td>{item.email}</td>
+                      <td>{item.phone}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
     )
 }

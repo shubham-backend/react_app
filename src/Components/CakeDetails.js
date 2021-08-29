@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 function CakeDetails(props)
 {
     var [cakedetails, setcakedetails] = useState({})
@@ -26,16 +26,23 @@ function CakeDetails(props)
                                 <div class="fa fa-heart-o like"></div>
                             </div>
                             <div class="product-pic"> <img class="pic1" src={cakedetails.image} /> </div>
-                            <h5 class="product-name">{cakedetails.name}</h5>
-                            <small class="category">{cakedetails.description}</small>
+                            <div style={{textAlign: "center", marginTop:"10px"}}>
+                                <h3 class="product-name">{cakedetails.name}</h3>
+                            </div>
+                            <p class="category">{cakedetails.description}</p>
                             <div class="row px-3 justify-content-between">
-                                <p class="price">₹{cakedetails.price}</p>
+                                <p class="price"><b>Price:</b> ₹{cakedetails.price}</p>
+                                <p class="price"><b>Weight:</b>{cakedetails.weight}Kg</p>
                                 <div class="stars">{cakedetails.ratings}
                                  <span class="fa fa-star star-active"></span> 
-                                <span class="fa fa-star star-active"></span> 
-                                <span class="fa fa-star star-active"></span> 
-                                <span class="fa fa-star-o"></span> 
-                                <span class="fa fa-star-o"></span> </div>
+                                 <span class="fa fa-star star-active"></span> 
+                                 <span class="fa fa-star star-active"></span> 
+                                 <span class="fa fa-star-o"></span> 
+                                 <span class="fa fa-star-o"></span> 
+                                </div>
+                            </div>
+                            <div style={{textAlign: "center"}}>
+                                <Link to="/cart"> <button className="btn btn-primary addtocart">Add to Cart</button> </Link>
                             </div>
                         </div>
                     </div>

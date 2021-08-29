@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import {useState, useEffect} from "react"
 import axios from "axios"
+import { css } from "@emotion/react";
+import GridLoader from "react-spinners/GridLoader";
+
 var CakeList =[
 {
     name:"Truffle Cake",
@@ -66,11 +69,20 @@ let cakestyle = {
     margin: "0 15px 10px 0",
     padding: "1em 0",
 }
-
+//https://www.npmjs.com/package/react-spinners
+// https://www.davidhu.io/react-spinners/
 export default function Cake(props)
 {
     
     var[cake,setCakes]= useState([]);
+    const override = css`
+        display: block;
+        margin: 0 auto;
+        border-color: red;
+    `;
+    let [loading, setLoading] = useState(true);
+    let [color, setColor] = useState("#FFFFFF");
+
     useEffect(() => {
         axios({
             method:'get',
@@ -78,13 +90,15 @@ export default function Cake(props)
             }).then((response)=>{
             console.log("response from all cakes api " , response.data)
             setCakes(response.data.data)
+            setLoading(false);
             }, (error)=>{
             console.log("error from api " , error)
             }) 
     }, [])
     return 	(
         <div className="row" style={stl}>
-            { cake.map((cake,index) =>( 
+            <GridLoader color={color} loading={loading} css={override} size={15} />
+            { cake?.map((cake,index) =>( 
                 <div className="card hvimg" style={cakestyle} key={index}>
                     <Link to={"/cake/"+cake.cakeid}> <img className="card-img-top hvimg1" src={cake.image} alt="Card image cap"/> </Link>
                 <div className="card-body">
