@@ -1,9 +1,20 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { css } from "@emotion/react";
+import GridLoader from "react-spinners/GridLoader";
+
 function CakeDetails(props)
 {
     var [cakedetails, setcakedetails] = useState({})
+    const override = css`
+        display: block;
+        margin: 0 auto;
+        border-color: red;
+    `;
+    let [loading, setLoading] = useState(true);
+    let [color, setColor] = useState("#FFFFFF");
+
     useEffect(() => {
 		axios({
 			url: process.env.REACT_APP_BASE_API_URL+"/cake/"+props.match.params.cakeid,
@@ -11,6 +22,7 @@ function CakeDetails(props)
 		}).then((response)=>{
 			console.log("Cake Details API", response.data.data);
 			setcakedetails(response.data.data)
+            setLoading(false);
 		},(error)=>{
 			console.log("Cake Details API Error", error);
 		})
@@ -18,6 +30,7 @@ function CakeDetails(props)
 
     return (
         <div>
+           {loading ? <GridLoader color={color} loading={loading} css={override} size={15} /> :
             <div class="container-fluid px-sm-1 py-5 mx-auto">
                 <div class="row justify-content-center">
                     <div class="d-flex">
@@ -47,7 +60,7 @@ function CakeDetails(props)
                         </div>
                     </div>
                 </div>
-            </div>        
+            </div> }       
         </div>
     )
 }
