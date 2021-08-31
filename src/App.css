@@ -40,7 +40,7 @@
   padding: 12px;
   border: 7px solid #ccc;
   border-radius: 4px;
-  width: 851px;
+  width: 361px;
   margin: 20px auto;
   text-align: center;
 }
@@ -73,7 +73,7 @@
 }
 
 body{
-  background-color: cadetblue;
+  background-color: rgb(95, 107, 160);
 }
 
 .btn-space {
@@ -191,4 +191,9 @@ svg.V3C5bO.btn-spc {
   height: 230px;
   display: block;
   overflow: hidden;
+}
+
+div#carouselExampleIndicators {
+  padding: 0 10px;
+  margin-top: 10px;
 }

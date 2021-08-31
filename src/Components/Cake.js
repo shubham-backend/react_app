@@ -3,6 +3,7 @@ import {useState, useEffect} from "react"
 import axios from "axios"
 import { css } from "@emotion/react";
 import GridLoader from "react-spinners/GridLoader";
+import {Footer} from "./Footer"
 
 var CakeList =[
 {
@@ -61,7 +62,9 @@ let stl = {
     "justifyContent": "center",
     "flexFlow": "wrap row",
     "alignItems": "flex-start",
-    "marginTop": "40px"
+    "marginTop": "40px",
+    "marginLeft":"0px",
+    "marginRight":"0px"
 }
 
 let cakestyle = {
@@ -83,6 +86,13 @@ export default function Cake(props)
     let [loading, setLoading] = useState(true);
     let [color, setColor] = useState("#FFFFFF");
 
+    function changeBackground(e) {
+        //e. target. style. background = "white";
+    }
+
+    function changeBackgroundPrevious(e) {
+        //e. target. style. background = "white";
+    }
     useEffect(() => {
         axios({
             method:'get',
@@ -97,9 +107,9 @@ export default function Cake(props)
     }, [])
     return 	(
         <div className="row" style={stl}>
-            <GridLoader color={color} loading={loading} css={override} size={15} />
-            { cake?.map((cake,index) =>( 
-                <div className="card hvimg" style={cakestyle} key={index}>
+            {loading ? <GridLoader color={color} loading={loading} css={override} size={15} />
+            : cake?.map((cake,index) =>( 
+                <div className="card hvimg" style={cakestyle} key={index} onMouseOver={changeBackground} onMouseOut={changeBackgroundPrevious}>
                     <Link to={"/cake/"+cake.cakeid}> <img className="card-img-top hvimg1" src={cake.image} alt="Card image cap"/> </Link>
                 <div className="card-body">
                     <h5 className="card-title">{cake.name}</h5>
@@ -109,7 +119,9 @@ export default function Cake(props)
                     </div>
                 </div>
                 </div>
-            ))}
+            ))
+            }
+            {loading ? '' : <Footer />}
         </div>
     )
 }
