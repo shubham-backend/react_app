@@ -12,10 +12,11 @@ if(searchText){
 }
 function Navbar()
 {
+    var cakesvg = "cake.svg";
     return(
         <div className="App">
           <nav class="navbar navbar-expand-lg navbar-light bg-info">
-            <Link to="/"><a class="navbar-brand" href="#">Gupta Cake House</a></Link>
+            <Link to="/"><a class="navbar-brand" href="#">Gupta Cake House</a></Link><img style={{"height" : "45px"}} src={cakesvg} alt="Cake Online" />
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
