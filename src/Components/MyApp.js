@@ -10,13 +10,15 @@ import Cart from "./Cart";
 import Checkout from "./Checkout";
 import Pagenotfound from "./Pagenotfound";
 import CakeDetails from "./CakeDetails";
-
+import { useState } from "react";
 function MyApp()
 {
+    var [isUserLoggedIn, setUserLogin] = useState(localStorage.token ? true : false)
+
     return(
         <div>
             <BrowserRouter>
-            <Navbar />
+            <Navbar isUserLoggedIn={isUserLoggedIn} />
             <Switch>
             <Route exact path="/" component={Home}></Route>
             <Route exact path="/signup" component={Signup}></Route>

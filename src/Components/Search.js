@@ -3,8 +3,12 @@ import axios from 'axios';
 import { css } from "@emotion/react";
 import GridLoader from "react-spinners/GridLoader";
 import { Link } from "react-router-dom";
+import queryString from "query-string"
+
 function Search(props)
 {
+    const query = queryString.parse(props.location.search);
+
     let stl = {
         display: "flex",
         "justifyContent": "center",
@@ -30,7 +34,7 @@ function Search(props)
     `;
     useEffect(()=>{
         axios({
-            url: process.env.REACT_APP_BASE_API_URL+"/searchcakes?q=choco",
+            url: process.env.REACT_APP_BASE_API_URL+"/searchcakes?q="+query.q,
             method: 'get'
         }).then((response)=>{
             console.log("shubham", response.data.data);
@@ -39,7 +43,7 @@ function Search(props)
         },(error)=>{
             console.log("error", error);
         })
-    },[])
+    },[query.q])
 
     return (
         <div className="row" style={stl}>
@@ -56,6 +60,10 @@ function Search(props)
                 </div>
                 </div>
             ))}
+            { cakes?.length ===0 &&
+                <div className="row alert alert-success" role="alert">Oops !! No cake found. Try search with another cake.
+                </div>
+            }
         </div>
     )
 }

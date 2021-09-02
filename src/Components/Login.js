@@ -32,7 +32,8 @@ function Login(props)
                 console.log("Login API", response)
 
                 if(response.data){
-                    alert('Login Successfully - '+response.data.name);
+                    localStorage.setItem('token',response.data.token)
+                    props.history.push("/")
                 } else {
                     alert('Something went wrong.');
                 }
