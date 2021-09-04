@@ -28,6 +28,30 @@ function CakeDetails(props)
 		})
     },[])
 
+    let cakeObj = {
+        name : cakedetails.name,
+        cakeid : cakedetails.cakeid,
+        price : cakedetails.price,
+        weight : cakedetails.weight,
+        image: cakedetails.image
+    }
+
+    function addToCart(){
+        axios({
+            url:'https://apifromashu.herokuapp.com/api/addcaketocart',
+            method: 'post',
+            data: cakeObj,
+            headers: {
+                authtoken: localStorage.token,
+            }
+        }).then((response) => {
+            console.log(response.data);
+        },(error) => {
+            console.log(error);
+        })
+    }
+
+
     return (
         <div>
            {loading ? <GridLoader color={color} loading={loading} css={override} size={15} /> :
@@ -55,7 +79,7 @@ function CakeDetails(props)
                                 </div>
                             </div>
                             <div style={{textAlign: "center"}}>
-                                <Link to="/cart"> <button className="btn btn-primary addtocart">Add to Cart</button> </Link>
+                                <button onClick={addToCart} className="btn btn-primary addtocart">Add to Cart</button>
                             </div>
                         </div>
                     </div>

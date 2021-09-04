@@ -14,7 +14,10 @@ import { useState } from "react";
 function MyApp()
 {
     var [isUserLoggedIn, setUserLogin] = useState(localStorage.token ? true : false)
-
+    function loggedin()
+    {
+        setUserLogin(true)
+    }
     return(
         <div>
             <BrowserRouter>
@@ -22,7 +25,8 @@ function MyApp()
             <Switch>
             <Route exact path="/" component={Home}></Route>
             <Route exact path="/signup" component={Signup}></Route>
-            <Route exact path="/login" component={Login}></Route>
+            <Route exact path ="/login"> <Login loggedin={loggedin}/></Route>
+            {/* <Route exact path="/login" component={Login}></Route> */}
             <Route exact path="/forgot" component={Forgot}></Route>
             <Route exact path="/search" component={Search}></Route>
             <Route exact path="/admin" component={Admin}></Route>

@@ -43,7 +43,7 @@ function Navbar(props)
                         <span style={{"paddingRight":"10px"}}>+91 - 8709874654</span> <b>Help ?</b>                        </div>
                 </div>
                 <div className="btn-spc">
-                    {props.isUserLoggedIn}
+                    {console.log(props.isUserLoggedIn)}
                 {props.isUserLoggedIn == false && 
                 <div>
                     <Link to="/login"><button className="btn btn-primary btn-space" type="submit">Login</button></Link>

@@ -108,7 +108,7 @@ export default function Cake(props)
     return 	(
         <div className="row" style={stl}>
             {loading ? <GridLoader color={color} loading={loading} css={override} size={15} />
-            : cake?.map((cake,index) =>( 
+             :  cake?.map((cake,index) =>( 
                 <div className="card hvimg" style={cakestyle} key={index} onMouseOver={changeBackground} onMouseOut={changeBackgroundPrevious}>
                     <Link to={"/cake/"+cake.cakeid}> <img className="card-img-top hvimg1" src={cake.image} alt="Card image cap"/> </Link>
                 <div className="card-body">

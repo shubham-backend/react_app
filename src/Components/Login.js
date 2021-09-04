@@ -1,23 +1,30 @@
 import userEvent from "@testing-library/user-event"
 import { useState } from "react"
-import {Link} from "react-router-dom"
+import {Link, withRouter} from "react-router-dom"
 import axios from "axios"
+import { useHistory } from "react-router"
 
 function Login(props)
 {
     var[errorEmail,setErrorEmail] = useState(null)
     var[errorPassword,setErrorPassword] = useState(null)
+    var [user, setUser] = useState({})
+    let [loading, setLoading] = useState(true);
+    let [color, setColor] = useState("#FFFFFF");
 
-    var user ={};
     function handleEmail(e){
         user.email = e.target.value
+        setUser(user)
     }
     function handlePassword(e){
         user.password = e.target.value
+        setUser(user)
     }
     function login(e)
     {
         e.preventDefault();
+        setErrorEmail('');
+        setErrorPassword('');
         if(!user.email){
             setErrorEmail("Email field is required");
         } else if(!user.password){
@@ -29,10 +36,10 @@ function Login(props)
                 method:'post',
                 data:user
             }).then((response) => {
-                console.log("Login API", response)
-
-                if(response.data){
+                if(response.data.token){
+                    props.loggedin(true);
                     localStorage.setItem('token',response.data.token)
+                    setLoading(false);
                     props.history.push("/")
                 } else {
                     alert('Something went wrong.');
@@ -61,4 +68,4 @@ function Login(props)
     )
 }
 
-export default Login
+export default withRouter(Login)
