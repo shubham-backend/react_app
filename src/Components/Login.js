@@ -40,6 +40,7 @@ function Login(props)
                 if(response.data.token){
                     props.dispatch({
                         type:"LOGIN",
+                        payload: response.data
                     })
                     //props.loggedin(true);
                     localStorage.setItem('token',response.data.token)
@@ -57,7 +58,7 @@ function Login(props)
         <div className="Apps">
             <form>
             <b><i>Login</i></b><div className="form-group">
-                    <input onChange={handleEmail} class="form-control mr-sm-2" type="text" name="email" placeholder="Enater Email" aria-label="Search" />
+                    <input onChange={handleEmail} class="form-control mr-sm-2" type="text" name="email" placeholder="Enter Email" aria-label="Search" />
                     <div className="text-danger">{errorEmail}</div>
                 </div>
                 <div className="form-group">

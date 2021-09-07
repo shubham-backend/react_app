@@ -1,33 +1,39 @@
-export function Reducer1(
+export function Reducer(
     state={
     // samsung:0,
     // shubham:5,
     isUserLoggedIn : localStorage.token?true:false
     }, action){
+        console.log("action shubham", action.type);
     switch(action.type){
-    
     case "LOGIN" :{
+        console.log("action", action);
         state={...state}
         state["isUserLoggedIn"] = true
+        state.userdetails = action.payload
         return state
         //here it will modify and return the state 
     }
-    case "invalidToken" :{
+    case "invalidToken" : {
         state={...state}
-        state.isUserLoggedIn = false
+        state["isUserLoggedIn"] = false
         localStorage.clear()
         return state
     }
-
-    case "userInfo" :{
+    case "USER_DATA" :{
+        console.log("action shubham", action.payload);
         state={...state}
         state.user = action.payload
         return state
     }
-
     case "GET_CART" :{
         state={...state}
         state.cartitems = action.payload
+        return state
+    }
+    case "CHECKOUT" :{
+        state={...state}
+        state.checkout = action.payload
         return state
     }
     

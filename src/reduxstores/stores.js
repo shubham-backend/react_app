@@ -1,8 +1,8 @@
 import {createStore, applyMiddleware } from "redux"
-import { Reducer1 } from "./reducers"
+import { Reducer } from "./reducers"
 import { middleware1 } from "./middleware"
 
-var store = createStore(Reducer1, applyMiddleware(middleware1))
+var store = createStore(Reducer, applyMiddleware(middleware1))
 
 
 // store.dispatch({

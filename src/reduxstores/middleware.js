@@ -19,6 +19,7 @@ export var middleware1 = function(state) {
                     console.log(error);
                 })
             }
+            next(action)
         }
     }
 } 

@@ -24,27 +24,28 @@ axios.interceptors.request.use((request)=>{
   }
 })
 
-// axios({
-//   method:'get',
-//   url:process.env.REACT_APP_BASE_API_URL+"/getuserdetails",
-//   headers : {
-//     authtoken : localStorage.token
-//   }
-// }).then((response)=>{
-//   console.log("User Details -",response.data)
-//   if(response.data){
-//     dispatch({
-//       type:"userInfo",
-//       payload: response.data.data,
-//     })
-//   } else{
-//     dispatch({
-//       type: "invalidToken"
-//     })
-//   }
-// },(error) => {
-//   console.log(error);
-// })
+axios({
+  method:'get',
+  url : 'https://apifromashu.herokuapp.com/api/getuserdetails',
+  headers : {
+    authtoken : localStorage.token
+  }
+}).then((response)=>{
+  console.log("index.js", response.data.data);
+  if(response.data){
+    store.dispatch({
+      type:"USER_DATA",
+      payload: response.data.data,
+    })
+  } else{
+    alert();
+    // store.dispatch({
+    //   type: "invalidToken"
+    // })
+  }
+},(error) => {
+  console.log(error);
+})
 
 ReactDOM.render(
   <React.StrictMode>
