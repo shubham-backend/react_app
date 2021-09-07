@@ -21,12 +21,13 @@ function MyApp()
     return(
         <div>
             <BrowserRouter>
-            <Navbar isUserLoggedIn={isUserLoggedIn} />
+            {/* <Navbar isUserLoggedIn={isUserLoggedIn} /> */}
+            <Navbar/>
             <Switch>
             <Route exact path="/" component={Home}></Route>
             <Route exact path="/signup" component={Signup}></Route>
-            <Route exact path ="/login"> <Login loggedin={loggedin}/></Route>
-            {/* <Route exact path="/login" component={Login}></Route> */}
+            {/* <Route exact path ="/login"> <Login loggedin={loggedin}/></Route> */}
+            <Route exact path="/login" component={Login}></Route>
             <Route exact path="/forgot" component={Forgot}></Route>
             <Route exact path="/search" component={Search}></Route>
             <Route exact path="/admin" component={Admin}></Route>

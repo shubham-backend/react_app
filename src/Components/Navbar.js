@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 import {withRouter} from "react-router-dom"
+import { connect } from 'react-redux';
 
 var searchText;
 var getSearchText = function(event){
@@ -43,7 +44,7 @@ function Navbar(props)
                         <span style={{"paddingRight":"10px"}}>+91 - 8709874654</span> <b>Help ?</b>                        </div>
                 </div>
                 <div className="btn-spc">
-                    {console.log(props.isUserLoggedIn)}
+                    {console.log(props.userInfo)}
                 {props.isUserLoggedIn == false && 
                 <div>
                     <Link to="/login"><button className="btn btn-primary btn-space" type="submit">Login</button></Link>
@@ -67,4 +68,11 @@ function Navbar(props)
     )
 }
 
-export default withRouter(Navbar)
+// export default withRouter(Navbar)
+Navbar = withRouter(Navbar)
+export default connect(function(state, props){
+    return {
+        isUserLoggedIn :state.isUserLoggedIn,
+        userInfo : state.user
+    }
+})(Navbar)

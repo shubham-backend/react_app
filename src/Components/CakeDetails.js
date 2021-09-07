@@ -37,6 +37,7 @@ function CakeDetails(props)
     }
 
     function addToCart(){
+        setLoading(true)
         axios({
             url:'https://apifromashu.herokuapp.com/api/addcaketocart',
             method: 'post',
@@ -45,7 +46,8 @@ function CakeDetails(props)
                 authtoken: localStorage.token,
             }
         }).then((response) => {
-            console.log(response.data);
+            setLoading(false)
+            alert('Cake added in your cart.')
         },(error) => {
             console.log(error);
         })
@@ -69,7 +71,7 @@ function CakeDetails(props)
                             <p class="category">{cakedetails.description}</p>
                             <div class="row px-3 justify-content-between">
                                 <p class="price"><b>Price:</b> ₹{cakedetails.price}</p>
-                                <p class="price"><b>Weight:</b>{cakedetails.weight}Kg</p>
+                                <p class="price"><b>Weight: </b>{cakedetails.weight}Kg</p>
                                 <div class="stars">{cakedetails.ratings}
                                  <span class="fa fa-star star-active"></span> 
                                  <span class="fa fa-star star-active"></span> 

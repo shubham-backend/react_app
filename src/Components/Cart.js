@@ -1,38 +1,118 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-function Cart()
+import { css } from "@emotion/react";
+import GridLoader from "react-spinners/GridLoader";
+import { connect } from "react-redux";
+
+function Cart(props)
 {
-    let [CakeCarts, setCakeCart] = useState([]);
-    let [loading, setLoading] = useState(true);
-    let [color, setColor] = useState("#FFFFFF");
-    var total = 0;
+   let [CakeCarts, setCakeCart] = useState([]);
+   let [loading, setLoading] = useState(true);
+   let [color, setColor] = useState("#FFFFFF");
+   var total = 0;
+   const override = css`
+      display: block;
+      margin: 0 auto;
+      border-color: red;
+   `;
 
     useEffect(()=>{
-        axios({
-            method:'post',
-            url:process.env.REACT_APP_BASE_API_URL+"/cakecart",
-        }).then((response)=>{
-            console.log("Cake", response.data.data);
-            setCakeCart(response.data.data);
-        },(error) => {
-            console.log(error);
-        })
+      //   axios({
+      //       method:'post',
+      //       url:process.env.REACT_APP_BASE_API_URL+"/cakecart",
+      //   }).then((response)=>{
+      //       setCakeCart(response.data.data);
+      //       setLoading(false)
+      //   },(error) => {
+      //       console.log(error);
+      //   })
+      props.dispatch({
+         type:"GET_CART"
+      })
+      setLoading(false)
     },[])
 
    function removeCakeFromCart(cakeid){
+      setLoading(true);
       axios({
          method:'post',
          url:process.env.REACT_APP_BASE_API_URL+"/removecakefromcart",
          data:{cakeid:cakeid}
       }).then((response)=>{
-            console.log("Remove Cake", response.data.data);
-            window.location.href="";
+         if(response.data){
+            axios({
+               method:'post',
+               url:process.env.REACT_APP_BASE_API_URL+"/cakecart",
+            }).then((response)=>{
+               setCakeCart(response.data.data);
+               setLoading(false)
+            },(error) => {
+               console.log(error);
+            })
+         }
       },(error) => {
             console.log(error);
       })
    }
+
+   function removeOneCakeQuantityFromCart(cakeData){
+      cakeData.quantity = cakeData.quantity - 1
+      //API Call
+      setLoading(true);
+      axios({
+         method:'post',
+         url:process.env.REACT_APP_BASE_API_URL+"/removeonecakefromcart",
+         data: cakeData,
+         headers: {
+            authtoken: localStorage.token,
+         }
+      }).then((response)=>{
+         if(response.data){
+            axios({
+               method:'post',
+               url:process.env.REACT_APP_BASE_API_URL+"/cakecart",
+            }).then((response)=>{
+               setCakeCart(response.data.data);
+               setLoading(false)
+            },(error) => {
+               console.log(error);
+            })
+         }        
+      },(error) => {
+         console.log(error);
+      }) 
+  }
+
+  function addOneCakeQuantityFromCart(cakeData){
+      cakeData.quantity = cakeData.quantity +1
+      //API Call
+      setLoading(true);
+      axios({
+         url:process.env.REACT_APP_BASE_API_URL+'/addcaketocart',
+         method: 'post',
+         data: cakeData,
+         headers: {
+            authtoken: localStorage.token,
+         }
+      }).then((response) => {
+         if(response.data){
+            axios({
+               method:'post',
+               url:process.env.REACT_APP_BASE_API_URL+"/cakecart",
+            }).then((response)=>{
+               setCakeCart(response.data.data);
+               setLoading(false)
+            },(error) => {
+                  console.log(error);
+            })
+         }
+      },(error) => {
+            console.log(error);
+      })     
+  }
    return (
       <div>
+         {loading ? <GridLoader color={color} loading={loading} css={override} size={15} /> :
          <div class="container">
             <section class="mt-5 mb-4">
                <div class="row">
@@ -41,7 +121,7 @@ function Cart()
                      <div class="card wish-list mb-4">
                         <div class="card-body">
                      <h5 class="mb-4">Cart (<span>{CakeCarts.length}</span> items)</h5>
-                     {CakeCarts && CakeCarts.map((cake,index) =>(
+                     {props.CakeCarts && props.CakeCarts?.map((cake,index) =>(
                            <div class="row mb-4">
                               <div class="col-md-5 col-lg-3 col-xl-3">
                                  <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
@@ -65,11 +145,11 @@ function Cart()
                                        </div>
                                        <div>
                                           <div className="quantity">
-                                             <button className="plus-btn" type="button" name="button">
+                                             <button className="plus-btn" type="button" name="button" onClick={(e)=>{addOneCakeQuantityFromCart(cake)}}>
                                              <img src="plus.svg" alt="" />
                                              </button>
                                              <input type="text" name="name" value={cake.quantity} />
-                                             <button className="minus-btn" type="button" name="button">
+                                             <button className="minus-btn" type="button" name="button" onClick={(e)=>{removeOneCakeQuantityFromCart(cake)}}>
                                              <img src="minus.svg" alt="" />
                                              </button>
                                           </div>
@@ -123,8 +203,14 @@ function Cart()
                   </div>
                </div>
             </section>
-         </div>
+         </div>}
       </div>
    )
 }
-export default Cart
+//export default Cart
+
+export default connect(function(state, props){
+   return {
+      CakeCarts : state["cartitems"] || []
+   }
+})(Cart)

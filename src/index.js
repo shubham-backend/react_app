@@ -5,6 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import MyApp from './Components/MyApp';
 import axios from 'axios';
+import  store from"./reduxstores/stores"
+import {Provider} from "react-redux"
+import {dispatch} from "react"
 
 axios.interceptors.request.use((request)=>{
   //alert(request.url);
@@ -21,10 +24,34 @@ axios.interceptors.request.use((request)=>{
   }
 })
 
+// axios({
+//   method:'get',
+//   url:process.env.REACT_APP_BASE_API_URL+"/getuserdetails",
+//   headers : {
+//     authtoken : localStorage.token
+//   }
+// }).then((response)=>{
+//   console.log("User Details -",response.data)
+//   if(response.data){
+//     dispatch({
+//       type:"userInfo",
+//       payload: response.data.data,
+//     })
+//   } else{
+//     dispatch({
+//       type: "invalidToken"
+//     })
+//   }
+// },(error) => {
+//   console.log(error);
+// })
+
 ReactDOM.render(
   <React.StrictMode>
     {/* <App /> */}
-    <MyApp />
+    <Provider store={store}>
+      <MyApp />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

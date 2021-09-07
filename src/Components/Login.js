@@ -3,6 +3,7 @@ import { useState } from "react"
 import {Link, withRouter} from "react-router-dom"
 import axios from "axios"
 import { useHistory } from "react-router"
+import { connect } from 'react-redux';
 
 function Login(props)
 {
@@ -37,7 +38,10 @@ function Login(props)
                 data:user
             }).then((response) => {
                 if(response.data.token){
-                    props.loggedin(true);
+                    props.dispatch({
+                        type:"LOGIN",
+                    })
+                    //props.loggedin(true);
                     localStorage.setItem('token',response.data.token)
                     setLoading(false);
                     props.history.push("/")
@@ -68,4 +72,6 @@ function Login(props)
     )
 }
 
-export default withRouter(Login)
+//export default withRouter(Login)
+Login = withRouter(Login)
+export default connect()(Login)
