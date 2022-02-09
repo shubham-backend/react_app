@@ -21,7 +21,6 @@ export function Reducer(
         return state
     }
     case "USER_DATA" :{
-        console.log("action shubham", action.payload);
         state={...state}
         state.user = action.payload
         return state
@@ -32,18 +31,17 @@ export function Reducer(
         return state
     }
     case "CHECKOUT" :{
+        console.log(action.payload);
         state={...state}
         state.checkout = action.payload
         return state
     }
-    
     
     case "SAMSUNG" :{
     state={...state}
     state["samsung"]+=1
     return state
     }
-    
     
     case "SHUBHAM":{
         state={...state}

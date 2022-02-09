@@ -27,7 +27,7 @@ class Signup extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         if(this.validate()){
-            let items = [...this.state.items];
+            let items = [...this.state.items];  //[]
             items.push({name: this.state.name,email: this.state.email, password: this.state.password});
             var user = {name: this.state.name,email: this.state.email, password: this.state.password}
             this.setState({

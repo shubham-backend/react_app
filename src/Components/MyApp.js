@@ -10,7 +10,12 @@ import Cart from "./Cart";
 import Checkout from "./Checkout";
 import Pagenotfound from "./Pagenotfound";
 import CakeDetails from "./CakeDetails";
+import MyOrder from "./MyOrder"
 import { useState } from "react";
+import CounterClick from './Hoc/CounterClick';
+import CounterHover from './Hoc/CounterHover';
+
+
 function MyApp()
 {
     var [isUserLoggedIn, setUserLogin] = useState(localStorage.token ? true : false)
@@ -21,6 +26,8 @@ function MyApp()
     return(
         <div>
             <BrowserRouter>
+            <CounterClick></CounterClick>
+            <CounterHover></CounterHover>
             {/* <Navbar isUserLoggedIn={isUserLoggedIn} /> */}
             <Navbar/>
             <Switch>
@@ -34,6 +41,7 @@ function MyApp()
             <Route exact path="/cake/:cakeid" component={CakeDetails}></Route>
             <Route exact path="/cart" component={Cart}></Route>
             <Route exact path="/checkout" component={Checkout}></Route>
+            <Route exact path="/my-orders" component={MyOrder}></Route>
             <Route exact path="/*" component={Pagenotfound}></Route>
 
             </Switch>

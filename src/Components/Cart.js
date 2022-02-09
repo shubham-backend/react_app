@@ -103,7 +103,7 @@ function Cart(props)
                setCakeCart(response.data.data);
                setLoading(false)
             },(error) => {
-                  console.log(error);
+               console.log(error);
             })
          }
       },(error) => {
@@ -111,33 +111,7 @@ function Cart(props)
       })     
   }
 
-  const placeOrder = () => {
-      var datacake = {
-         name: document.getElementById("InputName").value,
-         address: document.getElementById("InputArea").value,
-         area:document.getElementById("InputArea").value,
-         city:document.getElementById("InputCity").value,
-         pincode:document.getElementById("InputPincode").value,
-         phone:document.getElementById("InputPhone").value,
-         cakes:[...props.CakeCarts],
-         price: document.getElementById("disabledPriceInput").value
-      };
-
-      axios({
-         method:'post',
-         url:process.env.REACT_APP_BASE_API_URL+"/addcaketocart",
-         data: datacake
-      }).then((response)=>{
-         setLoading(false)
-      },(error) => {
-            console.log(error);
-      })
-   };
-
   function checkout(t_price){
-     console.log('Total Price -', t_price)
-     console.log('Added Cart Details -', props.CakeCarts)
-     alert('checkout page');
      var data = {
         total_price : t_price,
         cake_cart : [...props.CakeCarts]
@@ -146,7 +120,9 @@ function Cart(props)
         type: "CHECKOUT",
         payload :data
      })
+     props.history.push('/checkout')
   }
+  
    return (
       <div>
          {loading ? <GridLoader color={color} loading={loading} css={override} size={15} /> :
@@ -241,64 +217,6 @@ function Cart(props)
                </div>
             </section>
          </div>}
-         {total > 0 ? 
-                    <div>
-                        <div className="checkout">
-                            <div>
-                                <span className="total-label">Total : </span><span className="total-amount">{total}</span>
-                            </div>
-                        </div>
-                        <div id="order_form" style={{border: "1px solid #0000003d", padding: "30px"}}>
-                            <h2 style={{marginBottom:"20px"}}>Place Order</h2>
-                            <form>
-                                <div className="mb-3">
-                                    <label htmlFor="InputName" className="form-label">Name</label>
-                                    <input type="text" className="form-control" id="InputName" aria-describedby="emailHelp" required/>
-                                    {/* <div id="emailHelp" className="form-text">We'll never share your details with anyone else.</div> */}
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="InputAddress" className="form-label">Address</label>
-                                    <input type="text" className="form-control" id="InputAddress" required/>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="InputArea" className="form-label">Area</label>
-                                    <input type="text" className="form-control" id="InputArea" required/>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="InputCity" className="form-label">City</label>
-                                    <input type="text" className="form-control" id="InputCity" required/>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="InputPincode" className="form-label">Pincode</label>
-                                    <input type="text" className="form-control" id="InputPincode" required/>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="InputPhone" className="form-label">Phone</label>
-                                    <input type="text" className="form-control" id="InputPhone" required/>
-                                </div>
-                                <div className="mb-3">
-                                <label htmlFor="disabledPriceInput" className="form-label">Price</label>
-                                <input type="text" id="disabledPriceInput" className="form-control" value={total} readOnly/>
-                                </div>
-                                <div className="mb-3 form-check">
-                                    <input type="checkbox" className="form-check-input" id="TermsAndCo" required/>
-                                    <label className="form-check-label" htmlFor="TermsAndCo">I Agree to Privacy Policy</label>
-                                </div>
-                                <div>
-                                    <button type="button" className="btn btn-primary action-button-primary" onClick={placeOrder}>Place Order</button>
-                                    <Link style={{float:"right"}}  type="button"  className="btn btn-primary action-button" to="/">Continue shopping</Link>
-                                    <Link style={{float:"right"}}  type="button"  className="btn btn-success action-button" to="/order">View Orders</Link>
-                                </div>
-                            </form>
-                        </div>
-                    </div> 
-                : 
-                    <div>
-                        <h1 style={{marginBottom:"30px"}}>No Items in Cart</h1>
-                        <Link style={{float:"left"}}  type="button"  className="btn btn-primary action-button" to="/">Continue shopping</Link>
-                        <Link style={{float:"left"}}  type="button"  className="btn btn-success action-button" to="/order">View Orders</Link>
-                    </div>
-                }
       </div>
    )
 }

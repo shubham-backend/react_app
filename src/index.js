@@ -11,7 +11,7 @@ import {dispatch} from "react"
 
 axios.interceptors.request.use((request)=>{
   //alert(request.url);
-  if(request.url.includes('cart')){
+  if(request.url.includes('cart') || request.url.includes('checkout')){
     console.log("request", request.headers.authtoken);
     if(localStorage.token){
       request['headers']['authtoken'] = localStorage.token

@@ -38,11 +38,11 @@ function Navbar(props)
                     </form>
                 </ul>
                 
-                <div class="nav-wrapper">
+                {/* <div class="nav-wrapper">
                     <div class="sup-nav" style={{"paddingRight": "9px", "marginBottom": "15px", "width": "100%", "float": "left", "textAlign": "right"}}>                  
                         <img src="https://img.aazho.com/sf/tr:f-auto//desktop/contact-us/call_e3jDIEba0d.png"  style={{"height": "11px"}} /> 
                         <span style={{"paddingRight":"10px"}}>+91 - 8709874654</span> <b>Help ?</b>                        </div>
-                </div>
+                </div> */}
 
                 <div className="btn-spc">
                 {props.isUserLoggedIn == false && 
@@ -53,8 +53,6 @@ function Navbar(props)
                 }
                 {props.isUserLoggedIn == true && 
                 <div>
-                    {console.log("user",props.user)}
-                    {console.log("user detail",props.userdetails)}
                     {props.user && <b>Welcome {props.user.name} </b>}
                     {props.user == 'undefined' && <b>Welcome {props.userdetails.name} </b>}
                     <Link to="/cart"><a class="btn btn-spc" data-placement="bottom" title="Cart" style={{color:"white",fontWeight:"600"}}>
@@ -62,6 +60,7 @@ function Navbar(props)
                     Cart
                     </a>
                     </Link>
+                    <Link to="/my-orders"><button className="btn btn-warning btn-space" type="submit">My Order</button></Link>
                     <button onClick={logout} className="btn btn-warning btn-space" type="submit">Logout</button>
                 </div>
                 }
